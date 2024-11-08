@@ -1,0 +1,269 @@
+# Jeu de Cartes
+import random 
+from random import shuffle 
+
+# Creation du paquet de 52 cartes
+
+deck=[['Coeur','As'],
+     ['Coeur','2'],
+     ['Coeur','3'],
+     ['Coeur','4'],
+     ['Coeur','5'],
+     ['Coeur','6'],
+     ['Coeur','7'],
+     ['Coeur','8'],
+     ['Coeur','9'],
+     ['Coeur','10'],
+     ['Coeur','Valet'],
+     ['Coeur','Dame'],
+     ['Coeur','Roi'],
+     ['Carreau','As'],
+     ['Carreau','2'],
+     ['Carreau','3'],
+     ['Carreau','4'],
+     ['Carreau','5'],
+     ['Carreau','6'],
+     ['Carreau','7'],
+     ['Carreau','8'],
+     ['Carreau','9'],
+     ['Carreau','10'],
+     ['Carreau','Valet'],
+     ['Carreau','Dame'],
+     ['Carreau','Roi'],
+     ['Pique','As'],
+     ['Pique','2'],
+     ['Pique','3'],
+     ['Pique','4'],
+     ['Pique','5'],
+     ['Pique','6'],
+     ['Pique','7'],
+     ['Pique','8'],
+     ['Pique','9'],
+     ['Pique','10'],
+     ['Pique','Valet'],
+     ['Pique','Dame'],
+     ['Pique','Roi'],
+     ['Trèfle','As'],
+     ['Trèfle','2'],
+     ['Trèfle','3'],
+     ['Trèfle','4'],
+     ['Trèfle','5'],
+     ['Trèfle','6'],
+     ['Trèfle','7'],
+     ['Trèfle','8'],
+     ['Trèfle','9'],
+     ['Trèfle','10'],
+     ['Trèfle','Valet'],
+     ['Trèfle','Dame'],
+     ['Trèfle','Roi']
+     ]
+
+# Distribution des 10 cartes aux joueurs
+
+deck_joueur_1 = []
+for i in range(10):                    # Ces boucles créent le deck de chaque joueur
+    shuffle(deck)                      # Melange le deck a chaque iteration
+    deck_joueur_1.append(deck[-1])     # Ajoute la dernière 'carte' du deck dans le deck du joueur
+    deck.pop(-1)                       # Retire du deck la carte donnée au deck du joueur
+deck_joueur_2 = []                     # Idem pour le deck du joueur 2
+for i in range(10):
+    shuffle(deck)
+    deck_joueur_2.append(deck[-1])
+    deck.pop(-1)
+deck_joueur_3 = []                     # Idem pour le deck du joueur 2
+for i in range(10):
+    shuffle(deck)
+    deck_joueur_3.append(deck[-1])
+    deck.pop(-1)
+
+print(f'pack joueur 1 : {deck_joueur_1}')
+print()
+print(f'pack joueur 2 : {deck_joueur_2}')
+print()
+print(f'pack joueur 3 : {deck_joueur_3}')
+print()
+print('longueur deck joueur 1 : ', len(deck_joueur_1))
+print('longueur deck joueur 2 : ', len(deck_joueur_2))
+print('longueur deck joueur 3 : ', len(deck_joueur_3))
+print()
+la_defausse = []
+
+shuffle(deck)
+print('Deck : ',deck)
+print('Longueur deck : ',len(deck))
+print()
+
+# Tour 1
+
+def Premier_Tour():
+
+    joueur_1 = int(input("Joueur 1, Pioché le deck (tape 0): "))  # On demande a l'utilisateur de pioché dans le deck 
+
+    if joueur_1 == 0 :                     # On a choisit de pioché un element dans "deck" qui est la pioche 
+        carte_tiré = deck[0]               # La carte tiré est la dernière carte pioché de ce deck
+        deck.pop(0)                        # On retire la carte pioché du deck
+        deck_joueur_1.append(carte_tiré)   # On ajoute la carte pioché au paquet de carte du joueur 1
+    
+# Fin du tour, le joueur jette une carte dans la defausse
+    print(f'pack joueur 1 : {deck_joueur_1}')
+    print()
+    place_dans_deck = int(input("Joueur 1, Choissisez une carte a jeté dans la defausse et entré le numero de sa place dans votre deck : "))
+    carte_choisis_1 = deck_joueur_1[place_dans_deck-1]       # On affecte a une variable la carte choisis qui a une position dans le deck du joueur 1 
+    la_defausse.append(carte_choisis_1)                      # On ajoute cette carte dans la defausse
+    deck_joueur_1.pop(place_dans_deck-1)                     # On retire la carte du deck du joueur 1
+    print('la defausse : ', la_defausse)
+    print('longueur de la defausse : ', len(la_defausse))
+    print()
+
+def Tour_Joueur_1():      
+
+    joueur_1 = int(input("Joueur 1, Pioché le deck (tape 0) ou la defausse (tape 1) ? : "))
+
+    if joueur_1 == 0 :                     # On a choisit de pioché un element dans "deck" qui est la pioche 
+        carte_tiré = deck[0]               # La carte tiré est la dernière carte pioché de ce deck
+        deck.pop(0)                        # On retire la carte pioché du deck
+        deck_joueur_1.append(carte_tiré)   # On ajoute la carte pioché au paquet de carte du joueur 1
+    if joueur_1 == 1 :                     # Meme principe pour la defausse 
+        carte_tiré = la_defausse[-1]
+        la_defausse.pop(-1)
+        deck_joueur_1.append(carte_tiré)
+
+# Fin du tour du joueur, le joueur jette une carte dans la defausse
+
+    print(f'pack joueur 1 : {deck_joueur_1}')
+    print()
+    place_dans_deck = int(input("Joueur 1, Choissisez une carte a jeté dans la defausse et entré le numero de sa place dans votre deck : "))
+    carte_choisis_1 = deck_joueur_1[place_dans_deck-1]  # Cet variable sera la carte choisis par le joueur dans son deck et sera jeter dans la defausse 
+    la_defausse.append(carte_choisis_1)                 # Cet carte sera dans ajouter dans la defausse
+    deck_joueur_1.pop(place_dans_deck-1)                # Elle sera retiré du deck du joueur
+    print('la defausse : ', la_defausse)
+    print('longueur de la defausse : ', len(la_defausse))
+    print()
+
+def Tour_Joueur_2():
+    
+    joueur_2 = int(input("Joueur 2, Pioché le deck (tape 0) ou la defausse (tape 1) ? : "))
+
+    if joueur_2 == 0 :                     # On a choisit de pioché un element dans "deck" qui est la pioche 
+        carte_tiré = deck[0]               # La carte tiré est la dernière carte pioché de ce deck
+        deck.pop(0)                        # On retire la carte pioché du deck
+        deck_joueur_2.append(carte_tiré)   # On ajoute la carte pioché au paquet de carte du joueur 1
+    
+    if joueur_2 == 1 :                     # Meme principe pour la defausse 
+        carte_tiré = la_defausse[-1]
+        la_defausse.pop(-1)
+        deck_joueur_2.append(carte_tiré)
+
+# Fin du tour, le joueur jette une carte dans la defausse
+
+    print(f'pack joueur 2 : {deck_joueur_2}')
+    print()
+    place_dans_deck = int(input("Joueur 2, Choissisez une carte a jeté dans la defausse et entré le numero de sa place dans votre deck : "))
+    carte_choisis_2 = deck_joueur_1[place_dans_deck-1]
+    la_defausse.append(carte_choisis_2)
+    deck_joueur_2.pop(place_dans_deck-1)
+    print('la defausse : ', la_defausse )
+    print('longueur de la defausse : ', len(la_defausse))
+    print()
+
+
+def Tour_Joueur_3():
+
+    joueur_3 = int(input("Joueur 3, Pioché le deck (tape 0) ou la defausse (tape 1) ? : "))
+
+    if joueur_3 == 0 :                     # On a choisit de pioché un element dans "deck" qui est la pioche 
+        carte_tiré = deck[0]               # La carte tiré est la dernière carte pioché de ce deck
+        deck.pop(0)                        # On retire la carte pioché du deck
+        deck_joueur_3.append(carte_tiré)   # On ajoute la carte pioché au paquet de carte du joueur 1
+    
+    if joueur_3 == 1 :                     # Meme principe pour la defausse 
+        carte_tiré = la_defausse[-1]
+        la_defausse.pop(-1)
+        deck_joueur_3.append(carte_tiré)
+
+# Fin du tour, le joueur jette une carte dans la defausse
+
+    print(f'pack joueur 3 : {deck_joueur_3}')
+    print()
+    place_dans_deck = int(input("Joueur 3, Choissisez une carte a jeté dans la defausse et entré le numero de sa place dans votre deck : "))
+    carte_choisis_3 = deck_joueur_1[place_dans_deck-1]
+    la_defausse.append(carte_choisis_3)
+    deck_joueur_3.pop(place_dans_deck)
+    print('la defausse : ', la_defausse )
+    print('longueur de la defausse : ', len(la_defausse))
+    print()
+
+# Début du programme
+
+print("Tour 1")
+print()
+Premier_Tour()
+Tour_Joueur_2()
+Tour_Joueur_3()
+
+# La partie se poursuit tant qu'un joueur n'a pas gagné.
+
+tour = 1
+while True :                                                   
+    tour +=1                                                    
+    print('tour : ', tour )
+    print()
+    Signe_deck = ['Coeur','Pique','Carreau','Trèfle'] 
+    Tour_Joueur_1()
+    Compteur_victoire = 0
+    Compteur_défaite = 0
+    for i in range(4):                     # Cette boucle se répète 4 fois car il y'a 4 signes
+        Signe = Signe_deck[i]              # A chaque iteration, le signe change : Pique, Trèfle, Coeur et Carreau
+        Compteur_condition = 0             # Ce compteur est le nombre de fois ou la condition est remplie.
+        for i in range(10):                # Comme il y'a 10, on verifie la condition 10  
+            if deck_joueur_1[i][0] == Signe: # Cette fameuse condition est que si la carte possède le meme signe que toutes les autres cartes alors le joueur gagne
+                Compteur_condition+=1      # Donc le compteur compte le nombre de fois ou la condition est remplie
+        if Compteur_condition == 10:       # Si cette condition est remplie pour les 10 cartes, le joueur possède un deck avec des cartes de meme signe.
+            Compteur_victoire += 1
+        else:                              # Sinon le joueur n'a pas de deck avec le meme signe 
+            Compteur_défaite += 1           
+                                            # La boucle recommence et on verifie si le prochain signe sera le bon
+    if Compteur_victoire == 1:             # Si le joueur possède une carte de meme signe il a officiellement gagné
+        print('gagné')
+    else:                                  # Sinon il a perdu car il ne possède aucun Signe
+        print('perdu')
+                                     
+    Tour_Joueur_2()                                           
+    Compteur_victoire = 0
+    Compteur_défaite = 0
+    for i in range(4):                     # Cette boucle se répète 4 fois car il y'a 4 signes
+        Signe = Signe_deck[i]              # A chaque iteration, le signe change : Pique, Trèfle, Coeur et Carreau
+        Compteur_condition = 0             # Ce compteur est le nombre de fois ou la condition est remplie.
+        for i in range(10):                # Comme il y'a 10, on verifie la condition 10  
+            if deck_joueur_1[i][0] == Signe: # Cette fameuse condition est que si la carte possède le meme signe que toutes les autres cartes alors le joueur gagne
+                Compteur_condition+=1      # Donc le compteur compte le nombre de fois ou la condition est remplie
+        if Compteur_condition == 10:       # Si cette condition est remplie pour les 10 cartes, le joueur possède un deck avec des cartes de meme signe.
+            Compteur_victoire += 1
+        else:                              # Sinon le joueur n'a pas de deck avec le meme signe 
+            Compteur_défaite += 1           
+                                            # La boucle recommence et on verifie si le prochain signe sera le bon
+    if Compteur_victoire == 1:             # Si le joueur possède une carte de meme signe il a officiellement gagné
+        print('gagné')
+    else:                                  # Sinon il a perdu car il ne possède aucun Signe
+        print('perdu')
+
+    Tour_Joueur_3()                                       
+    Compteur_victoire = 0
+    Compteur_défaite = 0
+
+        
+    for i in range(4):                     # Cette boucle se répète 4 fois car il y'a 4 signes
+        Signe = Signe_deck[i]              # A chaque iteration, le signe change : Pique, Trèfle, Coeur et Carreau
+        Compteur_condition = 0             # Ce compteur est le nombre de fois ou la condition est remplie.
+        for i in range(10):                # Comme il y'a 10, on verifie la condition 10  
+            if deck_joueur_1[i][0] == Signe: # Cette fameuse condition est que si la carte possède le meme signe que toutes les autres cartes alors le joueur gagne
+                Compteur_condition+=1      # Donc le compteur compte le nombre de fois ou la condition est remplie
+        if Compteur_condition == 10:       # Si cette condition est remplie pour les 10 cartes, le joueur possède un deck avec des cartes de meme signe.
+            Compteur_victoire += 1
+        else:                              # Sinon le joueur n'a pas de deck avec le meme signe 
+            Compteur_défaite += 1           
+                                            # La boucle recommence et on verifie si le prochain signe sera le bon
+    if Compteur_victoire == 1:             # Si le joueur possède une carte de meme signe il a officiellement gagné
+        print("C'est gagné ! Vous avez Collectionné 10 cartes de meme signe")
+    else:                                  # Sinon il a perdu car il ne possède aucun Signe
+        print("Vous n'avez pas encore 10 cartes de meme signe")
